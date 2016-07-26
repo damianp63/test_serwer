@@ -1,9 +1,26 @@
-def ping(host,port)
-   system "ping -c 1 -p #{port} #{host} >/dev/null"
+class SsdbService
+  def initialize (port,server="wp.pl")
+    @port=port
+    @server=server
+  end
+
+  def ping
+     system "ping -c 1 -p #{@port} #{@server} >/dev/null"
+  end
+
+  def ok
+    puts "ok"
+  end
+
+  def reset
+    puts "reset"
+  end
+
 end
 
-if(ping("79.133.47.4","4123"))
-  puts "ok"
+service=SsdbService.new(8890)
+if(service.ping)
+  service.ok
 else
-  puts "not work"
+  service.reset
 end
